@@ -1,17 +1,11 @@
-import { Controller, Get, Inject } from '@nestjs/common';
-import { AppService } from './app.service';
-import { Config } from './config/config.module';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { JWTGuard } from './auth/auth.service';
 
 @Controller()
 export class AppController {
-  constructor(
-    @Inject('Config')
-    private readonly config: Config,
-    private readonly appService: AppService,
-  ) {}
-
-  @Get()
-  getHello(): string {
-    return 'hello world!';
+  @Get('home')
+  @UseGuards(JWTGuard)
+  getHome(@Req() req): string {
+    return `Hello ${req.user.firstName}`;
   }
 }

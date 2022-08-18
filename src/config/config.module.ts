@@ -23,6 +23,7 @@ export class ConfigModule {
 }
 
 export interface Config {
-  key1: string;
-  key2: string;
+  clientID: string;
+  clientSecret: string;
+  jwtSecret: string;
 }
