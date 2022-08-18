@@ -1,6 +1,6 @@
 import { Controller, Get, Redirect, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
-import { AuthService, GoogleGuard } from './auth.service';
+import { AuthService, GoogleGuard, JWTGuard } from './auth.service';
 
 @Controller('login')
 export class AuthController {
@@ -9,6 +9,13 @@ export class AuthController {
   @Get()
   @UseGuards(GoogleGuard)
   getLogin() {
+    return;
+  }
+
+  @Get('logout')
+  @UseGuards(JWTGuard)
+  getLogout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('access-token');
     return;
   }
 
